@@ -1,12 +1,18 @@
 const express = require('express');
+const bodyParser = require('body-parser');
+
+const api = require('./api/v1/');
 
 const app = express();
 
-app.get('/', (req, res, next) => {
-  res.json({
-    message: 'Welcome to API',
-  });
-});
+app.use(bodyParser.urlencoded({
+  extended: false,
+}));
+
+app.use(bodyParser.json());
+
+app.use('/api/v1', api);
+app.use('/api', api);
 
 app.use((req, res, next) => {
   res.status(404);
