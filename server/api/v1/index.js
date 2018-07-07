@@ -4,4 +4,4 @@ const posts = require('./posts/routes');
 
 router.use('/post', posts);
 
-module.exports = router
+module.exports = router;
