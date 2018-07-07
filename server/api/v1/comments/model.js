@@ -5,45 +5,31 @@ const {
 } = mongoose;
 
 const fields = {
-  firstname: {
+  text: {
     type: String,
     required: true,
-    trim: true,
-  },
-  lastname: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  photo_url: {
-    type: String,
-    required: true,
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-    trim: true,
-    lowercase: true,
-  },
-  password: {
-    type: String,
-    required: true,
-    trim: true,
-    min: 6,
-  },
-  description: {
-    type: String,
-    default: '',
-    trim: true,
   },
 };
 
-const post = new Schema(fields, {
+const references = {
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: 'user',
+    required: true,
+  },
+  postId: {
+    type: Schema.Types.ObjectId,
+    ref: 'post',
+    required: true,
+  },
+};
+
+const comment = new Schema(Object.assign(fields, references), {
   timestamps: true,
 });
 
 module.exports = {
-  Model: mongoose.model('post', post),
+  Model: mongoose.model('comment', comment),
   fields,
+  references,
 };
